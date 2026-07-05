@@ -4,7 +4,8 @@ Components : Nothing but function which return JSX - Reusable HTML components .
 
 Props - every components are like function . function has parameters. components has props 
  
------
+--------------------------------------------------------
+
 import axios from "axios"
 function App() {
   let data = [] ;
@@ -48,6 +49,52 @@ useState is also a function but is called as Hook just like componenet is a func
 
 easier syntax :
 let [data, setData] = useState([]);
+
+
+Foreach Vs Map 
+Foreach when u want to run some logic on array of elements
+Map is when u want to transform array of something into array of something => returns new Array
+
+If u keep 
+ // axios.get("https://jsonplaceholder.typicode.com/todos")
+  //   .then(response => {
+  //     setData(response.data);
+  //   }) 
+   this you will observe 2 things :
+   1. APP components gets render infinitely if u log u can check that.
+   2. Infine request to JSON placeholder API . 
+
+   Now why this ?  
+   upuntill we understood,
+   UseState  - 1. data - current Value 2. setData - function to update data 
+
+   Whenever state variable changes react "rerenders" . Now what is this rerender ? 
+   Rerender - someone again call APP();
+   hence what again happens is again request goes state variable updates component loads again request goes and cycle continues.
+
+
+useEffect - lets u run side effect. SIdeeffect - outside component renderCycle
+Use Effect takes teo arguments a function and a array ;
+function - whatever written in function is now gurded from componnents rerender cycle.
+if dependency array is empty . 
+
+useEffect(function(){
+ 
+},[]);
+
+with Empty dependency array :
+this function will only run on the first render - mount 
+
+useEffect(function(){
+ axios.get("https://jsonplaceholder.typicode.com/todos")
+    .then(response => {
+       setData(response.data);
+     }) 
+},[]);
+
+
+f
+
 
 
 

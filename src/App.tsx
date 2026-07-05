@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function App() {
 
   //wont render since the data is not a state variable.
@@ -14,11 +14,12 @@ function App() {
 
   let [data, setData] = useState<any[]>([]); // initialised as empty array.
 
-
-  axios.get("https://jsonplaceholder.typicode.com/todos")
-    .then(response => {
-      setData(response.data);
-    })
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/todos")
+      .then(response => {
+        setData(response.data);
+      })
+  }, [])
 
   return (
     <>
