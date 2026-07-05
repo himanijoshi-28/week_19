@@ -1,0 +1,53 @@
+Recap :
+Components : Nothing but function which return JSX - Reusable HTML components . 
+
+
+Props - every components are like function . function has parameters. components has props 
+ 
+-----
+import axios from "axios"
+function App() {
+  let data = [] ;
+  axios.get("https://jsonplaceholder.typicode.com/todos")
+    .then(response => {
+      data = response.data;
+    })
+  return (
+    <>
+      <div className="">
+
+        {
+          JSON.stringify(data)
+        }</div></>
+  )
+}
+
+export default App
+
+this wont show anything since the initially the data is empty and after even feting the DOM is not updated
+
+IMPORTANT - 1. React only rerenders componets if a "State variable" changes 
+Rerendering - ? 
+- In non react world -  DOM manipulation  
+- IN react world u are not expected to write DOM manipulation u are expected to just update the state variables and react will update the DOM manipulation/
+
+State Variables -
+Not every variable is a state variable. 
+U have to tell react specifically the given variable is  a state variable. then only react will rerender. 
+
+let [data, setData] = useState([]);
+useState([]) // has 2 values [a,b]
+a = data , b = set Data ; hence u destructure it  [data, setData] 
+
+other wise 
+let returnValue = useState([]);//[a,b] 
+const date = returnValue[0] ; //current Value 
+const setData = returnValue[1];  
+
+useState is also a function but is called as Hook just like componenet is a function but is called as Component. 
+
+easier syntax :
+let [data, setData] = useState([]);
+
+
+
