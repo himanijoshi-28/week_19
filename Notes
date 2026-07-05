@@ -93,7 +93,8 @@ useEffect(function(){
 },[]);
 
 
-f
+useEffect also return a  function it is  a cleanup function 
+it runs with old data and then sideeffect function runs 
 
 
 

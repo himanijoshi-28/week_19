@@ -1,49 +1,46 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 function App() {
-
-  //wont render since the data is not a state variable.
-  //You have to specisfically tell react  which are state variables.
-  // let data;
-  // axios.get("https://jsonplaceholder.typicode.com/todos")
-  //   .then(response => {
-  //     data = response.data;
-  //   })
-
-  // How to declare a State variable to tell react to rerender when changes happens/ state of that variable updates 
-
-  let [data, setData] = useState<any[]>([]); // initialised as empty array.
-
-  useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/todos")
+  const [currentTodo, setCurrentTodo] = useState(1);
+  const [currentTodoTitle, setCurrentTodoTitle] = useState("");
+  function fetchTodo() {
+    axios.get(`https://jsonplaceholder.typicode.com/todos/${currentTodo}`)
       .then(response => {
-        setData(response.data);
+        setCurrentTodoTitle(response.data.title);
       })
-  }, [])
+  }
+  useEffect(function () {
+    fetchTodo();
+  }, [currentTodo]);
 
   return (
     <>
       <div className="">
+        <button onClick={function () {
+          setCurrentTodo(1)
+        }}>1</button>
 
-        {/* {
-          JSON.stringify(data)
-        } */}
-        <h1>Todos: </h1>
-        {data?.map((todo) =>
-          //  (
-          // <div style={{ backgroundColor: "pink", margin: "5px", padding: "5px", border: "2px solid black", borderRadius: "10px" }}>{todo?.title}</div>
-          // )
-          <Todo key={todo.id} title={todo.title}></Todo>
+        <button onClick={function () {
+          setCurrentTodo(2)
+        }}>2</button>
 
-        )}
+        <button onClick={function () {
+          setCurrentTodo(3)
+        }}>3</button>
+
+        <Todo currentTodo={currentTodoTitle}></Todo>
+
+      </div>
+    </>
+  );
 
 
-      </div></>
-  )
 }
 
 function Todo(props: any) {
-  return <div style={{ backgroundColor: "pink", margin: "5px", padding: "5px", border: "2px solid black", borderRadius: "10px" }}>{props.title}</div>
+  return <div className="">
+    {props.currentTodo}
+  </div>
 }
 
 
